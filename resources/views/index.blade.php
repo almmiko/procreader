@@ -20,7 +20,25 @@
                            @if(Auth::check() && Auth::user()->id == $post->user->id)
                                <div class="controls pull-right">
                                    <a href="{{ route('posts.edit', $post->id) }}" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                                   <a type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+
+                                   <a type="button" class="btn btn-danger" href="#"
+                                      onclick="event.preventDefault();
+
+                                                     var del = confirm('Are you sure?');
+
+                                                     if (del) {
+                                                         document.getElementById('delete-form').submit();
+                                                     }
+
+                                                     ">
+                                       <i class="glyphicon glyphicon-remove"></i>
+                                   </a>
+
+                                   <form id="delete-form" action="{{ action('PostController@destroy',  $post->id) }}" method="POST" style="display: none;">
+                                       <input type="hidden" name="_method" value="DELETE">
+                                       {{ csrf_field() }}
+                                   </form>
+
                                </div>
                            @endif
 
