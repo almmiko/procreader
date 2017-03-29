@@ -2,8 +2,20 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
-// Variables
-@import "variables";
+.post-item {
+  border-bottom: 1px solid #f2dede;
+  padding-bottom: 20px;
+}
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.post-title {
+  font-size: 20px;
+
+  small {
+    vertical-align: top;
+  }
+}
+
+.post-created {
+  margin: 0 8px;
+  color: #909090;
+}
