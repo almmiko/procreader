@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('name')->unique()->index();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
