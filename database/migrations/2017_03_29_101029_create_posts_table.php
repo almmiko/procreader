@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('link');
             $table->integer('user_id');
-            $table->integer('category_id');
+            $table->integer('category_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

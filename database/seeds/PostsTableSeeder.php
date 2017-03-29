@@ -19,7 +19,7 @@ class PostsTableSeeder extends Seeder
             'title' => 'Five Lessons from Scaling Pinterest',
             'link' => 'https://news.greylock.com/five-lessons-from-scaling-pinterest-6a699a889b08',
             'user_id' => 1,
-            'category_id' => 2,
+            'category_id' => null,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [

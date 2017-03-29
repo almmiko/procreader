@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Requests\CategoryRequest;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -107,9 +108,11 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $post = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        $post->delete();
+        $category->delete();
+
+        Post::where('category_id', $id)->update(['category_id' => null]);
 
         Session::flash('notify', 'Category has been successfully deleted');
 

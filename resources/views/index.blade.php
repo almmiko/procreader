@@ -45,7 +45,11 @@
                            <div class="post-item__info">
                                <span class="post-user">{{ $post->user->name }}</span>
                                <span class="post-created">{{ $post->created_at->diffForHumans() }}</span>
-                               <span class="label label-info">{{ $post->category->name }}</span>
+
+                               @if($post->category)
+                                   <span class="label label-info">{{$post->category->name }}</span>
+                               @endif
+
                            </div>
 
                        </div>
