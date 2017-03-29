@@ -22,7 +22,6 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">Create new post</a></li>
                             <li><a href="#">Create new category</a></li>
-                            <li><a href="#">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}"
