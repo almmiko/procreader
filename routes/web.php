@@ -16,3 +16,4 @@ Route::get('/', 'PostController@index')->name('index');;
 Auth::routes();
 
 Route::resource('posts', 'PostController');
+Route::resource('categories', 'CategoriesController');
