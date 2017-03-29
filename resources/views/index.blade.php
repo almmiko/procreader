@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+
+    @include('partials.flash-msg')
+
    <div class="row">
        <div class="col-md-12">
 
@@ -13,11 +16,20 @@
                                    {{ $post->title }}<small> ( {{parse_url($post->link, PHP_URL_HOST) }} )</small>
                                </a>
                            </h2>
+
+                           @if(Auth::check() && Auth::user()->id == $post->user->id)
+                               <div class="controls pull-right">
+                                   <a href="{{ route('posts.edit', $post->id) }}" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                                   <a type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                               </div>
+                           @endif
+
                            <div class="post-item__info">
                                <span class="post-user">{{ $post->user->name }}</span>
                                <span class="post-created">{{ $post->created_at->diffForHumans() }}</span>
                                <span class="label label-info">{{ $post->category->name }}</span>
                            </div>
+
                        </div>
                    </div>
                </div>

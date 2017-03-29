@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
 
             $table->increments('id');
             $table->string('title');
-            $table->string('link')->unique()->index();
+            $table->string('link');
             $table->integer('user_id');
             $table->integer('category_id');
             $table->timestamps();

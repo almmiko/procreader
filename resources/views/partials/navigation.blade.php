@@ -20,7 +20,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Create new post</a></li>
+                            <li><a href="{{ route('posts.create') }}">Create new post</a></li>
                             <li><a href="#">Create new category</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
