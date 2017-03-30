@@ -9,6 +9,6 @@ Read news from reddit/programming for fun
 - awesome bootstrap design
 
 
-##### License
+## License
 
 The Procreader is open-sourced project licensed under the [MIT license](http://opensource.org/licenses/MIT).
