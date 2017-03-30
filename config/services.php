@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'github' => [
+        'client_id' => '23d9d989dfe15a403ddf',
+        'client_secret' => '647b19da1f0c12b4862ea8c2cba56c86fe6b8625',
+        'redirect' => 'http://procreader.app/login/callback',
+    ],
+
 ];

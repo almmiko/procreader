@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', 'PostController@index')->name('index');;
+Route::get('/', 'PostController@index')->name('index');
 
 Auth::routes();
 
 Route::resource('posts', 'PostController');
 Route::resource('categories', 'CategoriesController');
+
+Route::get('login/github', 'Auth\LoginController@redirectToProvider')->name('github_login');
+Route::get('login/callback', 'Auth\LoginController@handleProviderCallback');
