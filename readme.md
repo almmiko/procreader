@@ -8,6 +8,8 @@ Read news from reddit/programming for fun
 - CRUD posts and categories
 - awesome bootstrap design
 
+## Screenshot
+![Alt text](http://image.prntscr.com/image/770a763f76b1462fbf58cfbc1df0d288.png "Procreader")
 
 ## License
 
