@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ApiPostsController extends Controller
 {
+
+    use GetAuthenticatedUser;
+
     /**
      * Display a listing of the resource.
      *
@@ -33,15 +35,11 @@ class ApiPostsController extends Controller
      */
     public function store(Request $request)
     {
+        $input = $request->all();
+        $input['user_id'] = $this->getAuthenticatedUser()['id'];
+        $post = Post::create($input);
 
-//        echo Auth::guard('api')->user();
-//
-//        $input = $request->all();
-//        $input['user_id'] = 1;
-//
-//        $post = Post::create($input);
-//
-//        return $post;
+        return $post;
     }
 
     /**
@@ -52,19 +50,12 @@ class ApiPostsController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $post = Post::findOrFail($id);
+
+        return $post;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -75,7 +66,14 @@ class ApiPostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $post = Post::findOrfail($id);
+
+        $input['user_id'] = $this->getAuthenticatedUser()['id'];
+
+        $post->update($input);
+
+        return $post;
     }
 
     /**
@@ -86,6 +84,7 @@ class ApiPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
     }
 }
