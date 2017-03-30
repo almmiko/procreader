@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApiPostsController extends Controller
 {
@@ -25,16 +26,6 @@ class ApiPostsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,7 +33,15 @@ class ApiPostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+//        echo Auth::guard('api')->user();
+//
+//        $input = $request->all();
+//        $input['user_id'] = 1;
+//
+//        $post = Post::create($input);
+//
+//        return $post;
     }
 
     /**
