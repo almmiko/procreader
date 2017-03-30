@@ -18,6 +18,10 @@ class Post extends Model
         'title', 'link', 'category_id', 'user_id'
     ];
 
+    protected $hidden = [
+        'category_id', 'user_id', 'deleted_at'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

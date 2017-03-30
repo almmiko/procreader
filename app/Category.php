@@ -16,6 +16,10 @@ class Category extends Model
         'name', 'user_id'
     ];
 
+    protected $hidden = [
+        'user_id', 'deleted_at'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User');
