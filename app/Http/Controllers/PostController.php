@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Session;
 class PostController extends Controller
 {
 
+    /**
+     * PostController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth')->except('index');
