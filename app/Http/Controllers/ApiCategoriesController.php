@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
-use App\Post;
+use App\Category;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class ApiPostsController extends Controller
+class ApiCategoriesController extends Controller
 {
-
     use GetAuthenticatedUser;
     use TEntityNotFound;
 
-    private function returnPostWithLinkedEntity($post)
+
+    private function returnCategoryWithLinkedEntity($category)
     {
-        return Post::with('user', 'category')->where('id', $post->id)->get();
+        return Category::with('user')->where('id', $category->id)->get();
     }
 
     /**
@@ -23,31 +23,30 @@ class ApiPostsController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\Database\Eloquent\Collection|static[]
-     * @internal param int $limit
      */
     public function index(Request $request)
     {
-
-        $posts = Post::with('user', 'category')
+        $category = Category::with('user')
             ->limit($request->get('limit'))
             ->get();
 
-        return $posts;
+        return $category;
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param PostRequest|Request $request
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @param CategoryRequest|Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(CategoryRequest $request)
     {
         $input = $request->all();
         $input['user_id'] = $this->getAuthenticatedUser()['id'];
-        $post = Post::create($input);
+        $category = Category::create($input);
 
-        return $this->returnPostWithLinkedEntity($post);
+        return $this->returnCategoryWithLinkedEntity($category);
     }
 
     /**
@@ -59,9 +58,10 @@ class ApiPostsController extends Controller
     public function show($id)
     {
         try {
-            $post = Post::findOrFail($id);
 
-            return $post;
+            $category = Category::findOrFail($id);
+            return $category;
+
         } catch (ModelNotFoundException $e) {
             return $this->NotFoundResponse();
         }
@@ -71,27 +71,25 @@ class ApiPostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param PostRequest|Request $request
+     * @param CategoryRequest|Request $request
      * @param  int $id
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-
         try {
             $input = $request->all();
-            $post = Post::findOrfail($id);
+            $category = Category::findOrfail($id);
 
             $input['user_id'] = $this->getAuthenticatedUser()['id'];
 
-            $post->update($input);
+            $category->update($input);
 
-            return $this->returnPostWithLinkedEntity($post);
+            return $this->returnCategoryWithLinkedEntity($category);
 
         } catch (ModelNotFoundException $e) {
             return $this->NotFoundResponse();
         }
-
     }
 
     /**
@@ -103,8 +101,8 @@ class ApiPostsController extends Controller
     public function destroy($id)
     {
         try {
-            $post = Post::findOrFail($id);
-            $post->delete();
+            $category = Category::findOrFail($id);
+            $category->delete();
         } catch (ModelNotFoundException $e) {
             return $this->NotFoundResponse();
         }
