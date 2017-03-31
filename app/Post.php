@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Post extends Model
@@ -42,6 +43,10 @@ class Post extends Model
     public function createRedditPosts($post_number = 20)
     {
 
+        if (! Auth::check()) {
+            return 'Your must login to perform this action';
+        }
+
         $client = new \GuzzleHttp\Client();
 
         $res = $client->request('GET', 'https://www.reddit.com/r/programming/top/.json?limit='.$post_number, [
@@ -54,13 +59,19 @@ class Post extends Model
         $posts = json_decode($res->getBody(), true);
 
         DB::table('posts')->truncate();
+        DB::table('categories')->truncate();
+
+        $category = Category::create([
+            'name' => 'reddit/programming',
+            'user_id' => Auth::id()
+        ]);
 
         foreach ($posts['data']['children'] as $p) {
             Post::create([
-                'user_id' => 4, //omg don`t do this on product
+                'user_id' => Auth::id(),
                 'title' => $p['data']['title'],
                 'link' => $p['data']['url'],
-                'category_id' => 3, //omg don`t do this on product
+                'category_id' => $category->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }
