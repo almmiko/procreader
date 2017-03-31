@@ -2,7 +2,7 @@
 
 Read news from reddit/programming for fun
 
-- command line posts fetcher from reddit
+- command line posts fetcher from reddit (php artisan fetch:reddit {number_of_posts})
 - github login
 - user auth
 - CRUD posts and categories
