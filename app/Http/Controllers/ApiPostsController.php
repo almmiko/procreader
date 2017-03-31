@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,11 @@ class ApiPostsController extends Controller
 {
 
     use GetAuthenticatedUser;
+
+    private function returnPostWithLinkedEntity($post)
+    {
+        return Post::with('user', 'category')->where('id', $post->id)->get();
+    }
 
     /**
      * Display a listing of the resource.
@@ -30,16 +36,16 @@ class ApiPostsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param PostRequest|Request $request
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $input = $request->all();
         $input['user_id'] = $this->getAuthenticatedUser()['id'];
         $post = Post::create($input);
 
-        return $post;
+        return $this->returnPostWithLinkedEntity($post);
     }
 
     /**
@@ -60,11 +66,11 @@ class ApiPostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param PostRequest|Request $request
+     * @param  int $id
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $input = $request->all();
         $post = Post::findOrfail($id);
@@ -73,7 +79,7 @@ class ApiPostsController extends Controller
 
         $post->update($input);
 
-        return $post;
+        return $this->returnPostWithLinkedEntity($post);
     }
 
     /**
